@@ -45,3 +45,18 @@ Cypress.Commands.add('financedCar', (financedCar) => {
 Cypress.Commands.add('buttonSubmit', () => {
     cy.get(`[data-testid="submit"]`).wait(1000).click();
 });
+
+Cypress.Commands.add('addVehicle', (typeSecurity, question, vehicleType, carBrand, manufactureYear, modelYear, carModel, carVersion, aboutCar, financedCar) => {
+    cy.selectTypeSecurity(typeSecurity)
+    cy.selectDynamicQuestion(question)
+    cy.selectVehicleType(vehicleType)
+    cy.carBrand(carBrand)
+    cy.selectYearManufactureAndModel(manufactureYear, modelYear)
+    cy.carModel(carModel)
+    cy.carVersion(carVersion)
+    cy.aboutTheVehicle(aboutCar)
+    cy.financedCar(financedCar)
+    cy.buttonSubmit()
+});
+
+
