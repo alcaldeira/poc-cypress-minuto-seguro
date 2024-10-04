@@ -1,32 +1,39 @@
-name: Cypress Tests
+name: Minuto Seguro
 
 on:
   push:
     branches:
       - main
-  pull_request:
-    branches:
-      - main
 
 jobs:
-  cypress:
-    runs-on: ubuntu-latest
-
+  cypress-run:
+    runs-on: self-hosted
+    
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: '16'  # Specify your Node.js version
+          node-version: '16'  # Ou outra versão LTS
 
-      - name: Install dependencies
-        run: npm install
+      - name: Print Node and NPM versions
+        run: |
+          node -v
+          npm -v
 
-      - name: Run Cypress tests
-        run: npx cypress run
+      - name: Clean Install
+        run: |
+          rm -rf node_modules
+          rm package-lock.json
+          npm install --omit=optional
 
+      - name: Run Cypress Tests
+        uses: cypress-io/github-action@v6
+        with:
+          command: npx cypress run
+ 
             
       - name: Get Allure history
         uses: actions/checkout@v3
