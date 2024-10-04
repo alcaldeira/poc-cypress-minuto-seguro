@@ -1,0 +1,41 @@
+name: Checkout Test Beleza na Web HML
+
+on:
+  push:
+    branches:
+      - main
+jobs:
+  cypress-run:
+    runs-on: [self-hosted, vs-ecomm]
+    container:
+      image: cypress/browsers:node18.12.0-chrome107
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: ".nvmrc"
+          registry-url: https://npm.pkg.github.com/
+
+
+      - name: Run component tests 🧪
+        uses: cypress-io/github-action@v6
+        id: checkoutblzhml
+        with:
+          command: npx cypress run
+            
+      - name: Get Allure history
+        uses: actions/checkout@v3
+        if: always()
+        continue-on-error: true
+        with:
+          ref: allure
+          path: allure
+
+      - name: Generate Allure Report
+        uses: simple-elf/allure-report-action@master
+        if: always()
+        with:
+          allure_results: allure-results
+          gh_pages: allure
