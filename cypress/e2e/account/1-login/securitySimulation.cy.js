@@ -1,4 +1,4 @@
-describe('Realiza login na home', { tags: ['@regressivo'] }, () => {
+describe('Simular seguro', { tags: ['@regressivo'] }, () => {
   beforeEach(() => {
     cy.visit('https://www.minutoseguros.com.br/')
   })

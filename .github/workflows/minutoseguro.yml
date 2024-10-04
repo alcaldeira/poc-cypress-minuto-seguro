@@ -20,18 +20,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '16'  # Ou outra versão LTS
-
-      - name: Print Node and NPM versions
-        run: |
-          node -v
-          npm -v
-
-      - name: Clean Install
-        run: |
-          rm -rf node_modules
-          rm package-lock.json
-          npm install --omit=optional
+          node-version: '16'
 
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v6
